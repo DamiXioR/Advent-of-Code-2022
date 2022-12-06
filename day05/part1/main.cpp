@@ -36,7 +36,7 @@ void run(const std::vector<std::string>&& fileContent){
         }
         std::size_t startPos{0};
         std::size_t endPos{0};
-        std::string delimiter{'['};
+        const std::string delimiter{'['};
 
         while ((endPos = line.find(delimiter, startPos)) != std::string::npos) {
             startPos = endPos + 1;
@@ -48,16 +48,18 @@ void run(const std::vector<std::string>&& fileContent){
 
     // main program
     const auto founded = std::find(fileContent.begin(), fileContent.end(), numsBelowStacks);
-    const auto diffBetweenEndOfStacksAndInstructions{2U};
+    const std::size_t diffBetweenEndOfStacksAndInstructions{2};
     std::size_t linesToSkip = std::distance(fileContent.begin(),founded) + diffBetweenEndOfStacksAndInstructions;
+
     for(const auto& line : fileContent){    
-        std::vector<std::size_t> digits;
         if(linesToSkip){
             --linesToSkip;
             continue;
         }
+        std::vector<std::size_t> digits;
         bool isDigit{false};
         std::string sDigit{""};
+
         for(const auto letter : line){
             if(isdigit(letter)){
                 isDigit = true;
